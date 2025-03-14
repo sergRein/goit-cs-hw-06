@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-db-goit-06
+    ports:
+      - "27017:27017"
+    command: ["mongod", "--noauth"] #disable login
+    volumes:
+      - mongo_data:/data/db
+  
+  simple_site:
+    container_name: goit-06-site
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+   
+
+volumes:
+  mongo_data:
+    driver: local
